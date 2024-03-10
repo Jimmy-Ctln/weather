@@ -1,10 +1,11 @@
 import './App.css';
+import { Weather } from './page/weather';
 
 function App() {
   return (
-    <div>
-      
-    </div>
+    <>
+      <Weather/>
+    </>
   );
 }
 
