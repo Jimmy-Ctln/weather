@@ -1,9 +1,11 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
+import { MyContext } from '../myContext'
 
 export const SearchBar = () => {
 
     const [location, setLocation] = useState('')
-    const [isClicked, setIsClicked] = useState(false)
+    
+    const {toggleValueSearch } = useContext(MyContext)
 
     const handleSearch = (ev) => {
         ev.preventDefault()
@@ -22,11 +24,11 @@ export const SearchBar = () => {
                 type="text"
                 name="location"
                 className="text-xl placeholder-gray-600"
-                placeholder="Choose your location"
+                placeholder="Choose your location.."
                 value={location}
                 onChange={ev => setLocation(ev.target.value)}
                 />
-                <button type="submit" onClick={() => setIsClicked(true)}>
+                <button type="submit" onClick={toggleValueSearch}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7 cursor-pointer">
                         <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                     </svg>
