@@ -8,13 +8,13 @@ export const Weather = () => {
   const [data, setData] = useState([]);
   const [isValid, setIsValid] = useState(false);
 
-  const baseUrl = 'http://api.weatherstack.com/'
-  const acces_key = process.env.REACT_APP_ACCES_KEY;
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+  const apiKey = process.env.REACT_APP_API_KEY;
 
   async function fetchWeather(location) {
     try {
       const response = await fetch(
-        `${baseUrl}current?access_key=${acces_key}&query=${location}`,
+        `${baseUrl}q=${location}&appid=${apiKey}&units=metric`,
         {
           method: "GET",
         }
@@ -31,6 +31,12 @@ export const Weather = () => {
     }
   }
 
+  function convertKelvintoCelsius(data) {
+    const result = Math.round(data)
+    return result
+  }
+  
+
   return (
     <div className="bg-background min-h-screen flex items-center justify-center">
       <div
@@ -46,15 +52,15 @@ export const Weather = () => {
             <div>
               <WeatherIcon cloudcover={0}/>
               <div className="flex flex-col items-center text-white">
-                <p className="text-5xl">{data?.current?.temperature}°</p>
+                <p className="text-5xl">{convertKelvintoCelsius(data?.main.temp)}°</p>
                 <div className="flex gap-2 mt-2">
-                  <p className="text-xl">Min.:20°</p>
-                  <p className="text-xl">Max.:31°</p>
+                  <p className="text-xl">Min.: {convertKelvintoCelsius(data?.main.temp_min)}°</p>
+                  <p className="text-xl">Max.:  {convertKelvintoCelsius(data?.main.temp_max)}°</p>
                 </div>
                 <div className="bg-black bg-opacity-40 w-full h-16 rounded-xl mt-8 flex justify-center">
                   <div className="flex items-center gap-2 justify-center items">
                     <img className="w-8 h-auto" src={Wind} alt="" />
-                    <p>{data?.current?.wind_speed}km/h</p>
+                    <p>{convertKelvintoCelsius(data?.wind?.speed)}km/h</p>
                   </div>
                   <div></div>
                 </div>
