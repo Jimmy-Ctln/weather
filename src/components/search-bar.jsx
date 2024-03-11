@@ -9,17 +9,24 @@ export const SearchBar = ({fetchWeather}) => {
         ev.preventDefault();
         if (location.trim().length === 0) {
             console.log('erreur champs vide !');
-            setError(true)
+            displayError()
         } else {
             fetchWeather(location)
         }
+    }   
+
+    const displayError = () => {
+        setError(true);
+        setTimeout(() => {
+            setError(false)
+          }, "2000");
     }
 
   return (
     <div className="flex px-5 relative">
         {error && (
-            <div className="text-red-600 font-xl absolute top-[-60px] text-center">
-                Merci de remplir de formulaire
+            <div className="text-red-600 font-xl font-bold absolute left-[30%] top-[-115%] text-center">
+                Please insert a city
             </div>
         )}
         <div className="flex gap-5 items-center">
