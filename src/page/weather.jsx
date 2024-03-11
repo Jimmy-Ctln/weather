@@ -1,13 +1,14 @@
 import { SearchBar } from "../components/search-bar";
 import { useState } from "react";
-import SunAndCloud from "../assets/sun&cloud.svg";
+import { WeatherIcon } from "../components/weather-icon";
+
 import Wind from "../assets/wind.svg";
 
 export const Weather = () => {
   const [data, setData] = useState([]);
   const [isValid, setIsValid] = useState(false);
 
-  const baseUrl = process.env.REACT_APP_BASE_URL;
+  const baseUrl = 'http://api.weatherstack.com/'
   const acces_key = process.env.REACT_APP_ACCES_KEY;
 
   async function fetchWeather(location) {
@@ -43,7 +44,7 @@ export const Weather = () => {
         {isValid && (
           <div className="h-full w-full flex justify-center">
             <div>
-              <img src={SunAndCloud} alt="" />
+              <WeatherIcon cloudcover={0}/>
               <div className="flex flex-col items-center text-white">
                 <p className="text-5xl">{data?.current?.temperature}°</p>
                 <div className="flex gap-2 mt-2">
